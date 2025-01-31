@@ -66,14 +66,18 @@ public class QueueServiceImpl implements QueueService {
         }
         if (status == Status.FALSE) {
             LocalDateTime now = LocalDateTime.now();
-            // Cập nhật timeEnd và timeOut của queue hiện tại
-
-            // Tính toán độ chênh lệch thời gian giữa thời điểm hiện tại và timeEnd
             Duration timeDiff = Duration.between(queue.getTimeEnd(), now);
+        List<Queue> listQueue=    queueRepository.findByLast(queue.getElectricVehicle().getId(),Status.PENDING,  queue.getNumber(),id);
+            if(listQueue.isEmpty()){
+                timeDiff = Duration.between(queue.getTimeEnd(), now);
+            }else{
+                Queue queueChoose=listQueue.get(0);
+                timeDiff = Duration.between(queue.getTimeEnd(), queueChoose.getTimeEnd());
+            }
             Long timeDiffInMillis = timeDiff.toMillis(); // Chuyển Duration thành mili giây
             queueRepository.updateQueueTimesAfterCancellation(
                     queue.getElectricVehicle().getId(),
-                    queue.getNumber(),
+                    queue.getNumber().name(),
                     queue.getTimeEnd(),
                     timeDiffInMillis // Truyền long vào thay vì Duration
             );

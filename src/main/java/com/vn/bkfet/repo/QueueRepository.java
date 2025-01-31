@@ -39,19 +39,26 @@ public interface QueueRepository extends JpaRepository<Queue, Long> {
 
     @Modifying
     @Transactional
-    @Query(nativeQuery = true, value = "UPDATE Queue q " +
-            "SET q.timeStart = DATE_ADD(q.timeStart, INTERVAL :timeDiff MILLISECOND), " +
-            "q.timeOut = DATE_ADD(q.timeOut, INTERVAL :timeDiff MILLISECOND), " +
-            "q.timeEnd = DATE_ADD(q.timeEnd, INTERVAL :timeDiff MILLISECOND) " +
-            "WHERE q.electricVehicle_id = :idVehicle " +
+    @Query(nativeQuery = true, value = "UPDATE queue q " +
+            "SET q.time_start = TIMESTAMPADD(SECOND, :timeDiff / 1000, q.time_start), " +  // ✅ Chuyển MILLISECOND thành SECOND
+            "q.time_out = TIMESTAMPADD(SECOND, :timeDiff / 1000, q.time_out), " +
+            "q.time_end = TIMESTAMPADD(SECOND, :timeDiff / 1000, q.time_end) " +
+            "WHERE q.id_electric = :idVehicle " +
             "AND q.number = :number " +
-            "AND q.timeEnd > :canceledTimeEnd")
+            "AND q.time_end > :canceledTimeEnd")
     void updateQueueTimesAfterCancellation(
             Long idVehicle,
-            NumberVehicle number,
+            String number,
             LocalDateTime canceledTimeEnd,
-            Long timeDiff // Sử dụng mili giây
+            long timeDiff
     );
+    @Query("SELECT q FROM Queue q " +
+            "WHERE (:idElectric IS NULL OR q.electricVehicle.id = :idElectric) " +
+            "AND (:status IS NULL OR q.status = :status) " +
+            "AND (:number IS NULL OR q.number = :number) " +
+            "AND (:id IS NULL OR q.id < :id) " +
+            "ORDER BY q.id DESC")
+    List<Queue> findByLast( Long idElectric, Status status, NumberVehicle number, Long id);
 
 
 }
