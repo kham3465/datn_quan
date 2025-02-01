@@ -66,7 +66,7 @@ class ApiRequest {
     String status
   ) async {
     return await ApiClient().request(
-        url: "$domain/public/update_queue/${idQueue}?status=${status}",
+        url: "$domain/public/update_queue/${idQueue}?status=FALSE",
         // data: json.encode(data),
         method: ApiClient.put);
   }

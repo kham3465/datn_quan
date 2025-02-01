@@ -28,26 +28,31 @@ class ApiRequest {
         method: ApiClient.post);
   }
 
-  static Future<ApiResponse> createQueue(
-      int idUser, int idVehicle, String number) async {
-    Map data = {"idUser": idUser, "idVehicle": idVehicle, "number": number};
+  static Future<ApiResponse> createQueue(int idUser, int idVehicle, String number) async {
+    Map data = {"idUser": idUser, "idVehicle": idVehicle, "number":number};
     return await ApiClient().request(
         url: "$domain/public/queue_create",
         data: json.encode(data),
         method: ApiClient.post);
   }
 
-  static Future<ApiResponse> getListQueue(int idVeghicle, String number) async {
+  static Future<ApiResponse> getListQueue(
+    int idVeghicle,
+    String number
+  ) async {
     return await ApiClient().request(
         url:
-            "$domain/public/get_list_queue?idElectric=${idVeghicle}&number=${number}",
+            "$domain/public/get_list_queue?idElectric=${idVeghicle}",
         // data: json.encode(data),
         method: ApiClient.get);
   }
 
-  static Future<ApiResponse> getQueueById(int id) async {
+   static Future<ApiResponse> getQueueById(
+    int id
+  ) async {
     return await ApiClient().request(
-        url: "$domain/public/get_queue/${id}",
+        url:
+            "$domain/public/get_queue/${id}",
         // data: json.encode(data),
         method: ApiClient.get);
   }
@@ -56,32 +61,37 @@ class ApiRequest {
     int idUser,
   ) async {
     return await ApiClient().request(
-        url: "$domain/public/get_list_queue?idUser=${idUser}",
+        url:
+            "$domain/public/get_list_queue?idUser=${idUser}",
         // data: json.encode(data),
         method: ApiClient.get);
   }
 
   static Future<ApiResponse> updateQueueMe(
     int idQueue,
-    String status
   ) async {
     return await ApiClient().request(
-        url: "$domain/public/update_queue/${idQueue}?status=${status}",
+        url:
+            "$domain/public/update_queue/${idQueue}?status=FALSE",
         // data: json.encode(data),
         method: ApiClient.put);
   }
-
 // chỗ này là câc api của trụ sạc
-  static Future<ApiResponse> getElectricById(int id) async {
+static Future<ApiResponse> getElectricById(
+    int id
+  ) async {
     return await ApiClient().request(
-        url: "$domain/public/get_electric/${id}",
+        url:
+            "$domain/public/get_electric/${id}",
         // data: json.encode(data),
         method: ApiClient.get);
   }
 
-  static Future<ApiResponse> getListElectric(String district) async {
+static Future<ApiResponse> getListElectric(
+    String district
+  ) async {
     return await ApiClient().request(
-        url: "$domain/public/get_list_electric?district=${district}",
+        url:"$domain/public/get_list_electric?district=${district}",
         // data: json.encode(data),
         method: ApiClient.get);
   }
@@ -100,7 +110,7 @@ class ApiRequest {
         url: "$domain/file/upload", formData: data, method: ApiClient.post);
   }
 
-  static Future<ApiResponse> getLocation(
+ static Future<ApiResponse> getLocation(
       int idUser, DateTime createTime, DateTime endTime) async {
     return await ApiClient().request(
         url:
@@ -108,14 +118,14 @@ class ApiRequest {
         // data: json.encode(data),
         method: ApiClient.post);
   }
-
-  static Future<ApiResponse> getLocationNew(int idUser) async {
+  static Future<ApiResponse> getLocationNew(
+      int idUser) async {
     return await ApiClient().request(
-        url: "$domain/public/latest/${idUser}",
+        url:
+            "$domain/public/latest/${idUser}",
         // data: json.encode(data),
         method: ApiClient.get);
   }
-
   static Future<ApiResponse> uploadListImages({
     required List<XFile> imagePaths,
   }) async {

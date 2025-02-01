@@ -40,13 +40,13 @@ class _MeQueueState extends State<MeQueue> {
     }
   }
 
-  Future<void> cancelQueue(String status) async {
+  Future<void> cancelQueue() async {
     int id=1;
     if(queue!=null){
       id=queue!.id;
     }
     try {
-      final res = await ApiRequest.updateQueueMe(id, status);
+      final res = await ApiRequest.updateQueueMe(id);
       if (res.code == "200" && mounted) {
       await Future.delayed(Duration(seconds: 2)); // Placeholder giả lập API
       setState(() {
@@ -55,27 +55,27 @@ class _MeQueueState extends State<MeQueue> {
 
       if (context.mounted) {
         ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text("Thành công")));
+            .showSnackBar(SnackBar(content: Text("Hủy lịch thành công")));
       }
       }
       else{
         if (context.mounted) {
         ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text("Lỗi khi thực hiện")));
+            .showSnackBar(SnackBar(content: Text("Lỗi khi hủy lịch")));
       }
       }
     } catch (e) {
       if (context.mounted) {
         ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text("Lỗi khi thực hiện: $e")));
+            .showSnackBar(SnackBar(content: Text("Lỗi khi hủy lịch: $e")));
       }
     }
   }
-  
 
   @override
   void initState() {
     super.initState();
+
     getQueue();
   }
 
@@ -93,7 +93,7 @@ class _MeQueueState extends State<MeQueue> {
           ElevatedButton(
             onPressed: () async {
               Navigator.of(context).pop();
-              await cancelQueue('FALSE'); // Thực hiện hủy lịch
+              await cancelQueue(); // Thực hiện hủy lịch
             },
             child: Text("Hủy lịch"),
           ),
@@ -110,14 +110,14 @@ class _MeQueueState extends State<MeQueue> {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text("Đồng ý"),
+            child: Text("Không"),
           ),
           ElevatedButton(
             onPressed: () async {
               Navigator.of(context).pop();
-              await cancelQueue('DONE'); // Thực hiện hủy lịch
+              await cancelQueue(); // Thực hiện hủy lịch
             },
-            child: Text("Hủy"),
+            child: Text("Hủy lịch"),
           ),
         ],
       ),
@@ -161,8 +161,8 @@ class _MeQueueState extends State<MeQueue> {
                   buildElectricVehicleCard(queue!.electricVehicle),
                    const SizedBox(height: 16),
                   ElevatedButton.icon(
-                    onPressed: showDoneConfirmationDialog,
-                    icon: Icon(Icons.done, color: Colors.white),
+                    onPressed: showCancelConfirmationDialog,
+                    icon: Icon(Icons.cancel, color: Colors.white),
                     label: Text("Hoàn thành"),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.green,

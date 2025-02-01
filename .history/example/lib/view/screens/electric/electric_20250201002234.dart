@@ -266,8 +266,7 @@ class _RegisterViewState extends State<RegisterView> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => ListQueue(
-                              idVehicle: widget.idVehicle,
-                              number: 'ONE',
+                              idVehicle: widget.idVehicle, number:'ONE' ,
                             )));
               },
               icon: Icons.ev_station,
@@ -281,8 +280,7 @@ class _RegisterViewState extends State<RegisterView> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => ListQueue(
-                              idVehicle: widget.idVehicle,
-                              number: 'TWO',
+                              idVehicle: widget.idVehicle, number: 'TWO',
                             )));
               },
               icon: Icons.ev_station,
@@ -296,8 +294,7 @@ class _RegisterViewState extends State<RegisterView> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => ListQueue(
-                              idVehicle: widget.idVehicle,
-                              number: 'THREE',
+                              idVehicle: widget.idVehicle, number: '',
                             )));
               },
               icon: Icons.ev_station,

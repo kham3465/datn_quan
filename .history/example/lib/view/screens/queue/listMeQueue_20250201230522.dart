@@ -4,7 +4,6 @@ import 'package:flutter_background_geolocation_example/view/model/QueueModel.dar
 import 'package:flutter_background_geolocation_example/view/network/api_request.dart';
 import 'package:flutter_background_geolocation_example/view/screens/queue/detailQueue.dart';
 import 'package:flutter_background_geolocation_example/view/screens/queue/me_shedule_queue.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ListQueueMe extends StatefulWidget {
 
@@ -16,7 +15,6 @@ class ListQueueMe extends StatefulWidget {
 
 class _ListQueueMeState extends State<ListQueueMe>
     with SingleTickerProviderStateMixin {
-      
   late TabController _tabController;
   List<Queue> queueList = [];
   List<Queue> queueListLast = [];
@@ -26,10 +24,8 @@ class _ListQueueMeState extends State<ListQueueMe>
   @override
   void initState() {
     super.initState();
-  
-
     _tabController = TabController(length: 2, vsync: this);
-    fetchQueueData();
+    fetchQueueData(widget.idVehicle);
 
     // Khởi tạo Timer kiểm tra dữ liệu sau 30 giây
     dataTimer = Timer(const Duration(seconds: 30), () {
@@ -53,11 +49,9 @@ class _ListQueueMeState extends State<ListQueueMe>
     super.dispose();
   }
 
-  Future<void> fetchQueueData() async {
-        final SharedPreferences prefs = await SharedPreferences.getInstance();
-  int? idUser = prefs.getInt('idUser');
+  Future<void> fetchQueueData(int idVehicle) async {
     try {
-      final res = await ApiRequest.getQueueMe(idUser??1);
+      final res = await ApiRequest.getListQueue(idVehicle);
       if (res.code == "200" && mounted) {
         List<dynamic> data = res.data;
         setState(() {

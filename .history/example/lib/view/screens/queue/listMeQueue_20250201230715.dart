@@ -57,7 +57,7 @@ class _ListQueueMeState extends State<ListQueueMe>
         final SharedPreferences prefs = await SharedPreferences.getInstance();
   int? idUser = prefs.getInt('idUser');
     try {
-      final res = await ApiRequest.getQueueMe(idUser??1);
+      final res = await ApiRequest.getQueueMe(idUser);
       if (res.code == "200" && mounted) {
         List<dynamic> data = res.data;
         setState(() {

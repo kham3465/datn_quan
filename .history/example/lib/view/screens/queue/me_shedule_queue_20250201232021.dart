@@ -76,6 +76,7 @@ class _MeQueueState extends State<MeQueue> {
   @override
   void initState() {
     super.initState();
+
     getQueue();
   }
 
@@ -161,8 +162,8 @@ class _MeQueueState extends State<MeQueue> {
                   buildElectricVehicleCard(queue!.electricVehicle),
                    const SizedBox(height: 16),
                   ElevatedButton.icon(
-                    onPressed: showDoneConfirmationDialog,
-                    icon: Icon(Icons.done, color: Colors.white),
+                    onPressed: showCancelConfirmationDialog,
+                    icon: Icon(Icons.cancel, color: Colors.white),
                     label: Text("Hoàn thành"),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.green,

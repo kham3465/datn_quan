@@ -162,7 +162,7 @@ class _MeQueueState extends State<MeQueue> {
                    const SizedBox(height: 16),
                   ElevatedButton.icon(
                     onPressed: showDoneConfirmationDialog,
-                    icon: Icon(Icons.done, color: Colors.white),
+                    icon: Icon(Icons.cancel, color: Colors.white),
                     label: Text("Hoàn thành"),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.green,

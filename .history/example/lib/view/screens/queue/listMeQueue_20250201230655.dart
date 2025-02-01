@@ -4,7 +4,6 @@ import 'package:flutter_background_geolocation_example/view/model/QueueModel.dar
 import 'package:flutter_background_geolocation_example/view/network/api_request.dart';
 import 'package:flutter_background_geolocation_example/view/screens/queue/detailQueue.dart';
 import 'package:flutter_background_geolocation_example/view/screens/queue/me_shedule_queue.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ListQueueMe extends StatefulWidget {
 
@@ -57,7 +56,7 @@ class _ListQueueMeState extends State<ListQueueMe>
         final SharedPreferences prefs = await SharedPreferences.getInstance();
   int? idUser = prefs.getInt('idUser');
     try {
-      final res = await ApiRequest.getQueueMe(idUser??1);
+      final res = await ApiRequest.getListQueue(idVehicle);
       if (res.code == "200" && mounted) {
         List<dynamic> data = res.data;
         setState(() {
