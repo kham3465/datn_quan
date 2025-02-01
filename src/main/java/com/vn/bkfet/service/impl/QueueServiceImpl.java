@@ -64,7 +64,7 @@ public class QueueServiceImpl implements QueueService {
         if (status != null) {
             queue.setStatus(status);
         }
-        if (status == Status.FALSE) {
+        if (status != Status.PENDING) {
             LocalDateTime now = LocalDateTime.now();
             Duration timeDiff = Duration.between(queue.getTimeEnd(), now);
         List<Queue> listQueue=    queueRepository.findByLast(queue.getElectricVehicle().getId(),Status.PENDING,  queue.getNumber(),id);
