@@ -85,19 +85,19 @@ class ApiRequest {
         method: ApiClient.get);
   }
 
-  // static Future<ApiResponse> uploadImages({
-  //   required XFile imagePaths,
-  // }) async {
-  //   MultipartFile imageFiles;
-  //   imageFiles = (await MultipartFile.fromFile(
-  //     imagePaths.path,
-  //     filename: imagePaths.path.split('/').last,
-  //     contentType: MediaType('image', 'jpg'),
-  //   ));
-  //   Map<String, dynamic> data = {"files": imageFiles};
-  //   return await ApiClient().request(
-  //       url: "$domain/file/upload", formData: data, method: ApiClient.post);
-  // }
+  static Future<ApiResponse> uploadImages({
+    required XFile imagePaths,
+  }) async {
+    MultipartFile imageFiles;
+    imageFiles = (await MultipartFile.fromFile(
+      imagePaths.path,
+      filename: imagePaths.path.split('/').last,
+      contentType: MediaType('image', 'jpg'),
+    ));
+    Map<String, dynamic> data = {"files": imageFiles};
+    return await ApiClient().request(
+        url: "$domain/file/upload", formData: data, method: ApiClient.post);
+  }
 
   static Future<ApiResponse> getLocation(
       int idUser, DateTime createTime, DateTime endTime) async {
@@ -115,23 +115,23 @@ class ApiRequest {
         method: ApiClient.get);
   }
 
-  // static Future<ApiResponse> uploadListImages({
-  //   required List<XFile> imagePaths,
-  // }) async {
-  //   List<MultipartFile> imageFiles = [];
-  //   for (XFile imagePath in imagePaths) {
-  //     imageFiles.add(await MultipartFile.fromFile(
-  //       imagePath.path,
-  //       filename: imagePath.path.split('/').last,
-  //       contentType: MediaType('image', 'png'),
-  //     ));
-  //   }
-  //   Map<String, dynamic> data = {
-  //     "files": imageFiles,
-  //   };
-  //   return await ApiClient().request(
-  //       url: "$domain/api/v1/file/upload",
-  //       formData: data,
-  //       method: ApiClient.post);
-  // }
+  static Future<ApiResponse> uploadListImages({
+    required List<XFile> imagePaths,
+  }) async {
+    List<MultipartFile> imageFiles = [];
+    for (XFile imagePath in imagePaths) {
+      imageFiles.add(await MultipartFile.fromFile(
+        imagePath.path,
+        filename: imagePath.path.split('/').last,
+        contentType: MediaType('image', 'png'),
+      ));
+    }
+    Map<String, dynamic> data = {
+      "files": imageFiles,
+    };
+    return await ApiClient().request(
+        url: "$domain/api/v1/file/upload",
+        formData: data,
+        method: ApiClient.post);
+  }
 }

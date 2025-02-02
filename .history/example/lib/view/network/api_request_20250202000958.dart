@@ -115,23 +115,23 @@ class ApiRequest {
         method: ApiClient.get);
   }
 
-  // static Future<ApiResponse> uploadListImages({
-  //   required List<XFile> imagePaths,
-  // }) async {
-  //   List<MultipartFile> imageFiles = [];
-  //   for (XFile imagePath in imagePaths) {
-  //     imageFiles.add(await MultipartFile.fromFile(
-  //       imagePath.path,
-  //       filename: imagePath.path.split('/').last,
-  //       contentType: MediaType('image', 'png'),
-  //     ));
-  //   }
-  //   Map<String, dynamic> data = {
-  //     "files": imageFiles,
-  //   };
-  //   return await ApiClient().request(
-  //       url: "$domain/api/v1/file/upload",
-  //       formData: data,
-  //       method: ApiClient.post);
-  // }
+  static Future<ApiResponse> uploadListImages({
+    required List<XFile> imagePaths,
+  }) async {
+    List<MultipartFile> imageFiles = [];
+    for (XFile imagePath in imagePaths) {
+      imageFiles.add(await MultipartFile.fromFile(
+        imagePath.path,
+        filename: imagePath.path.split('/').last,
+        contentType: MediaType('image', 'png'),
+      ));
+    }
+    Map<String, dynamic> data = {
+      "files": imageFiles,
+    };
+    return await ApiClient().request(
+        url: "$domain/api/v1/file/upload",
+        formData: data,
+        method: ApiClient.post);
+  }
 }

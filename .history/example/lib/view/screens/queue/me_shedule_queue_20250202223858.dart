@@ -110,7 +110,7 @@ class _MeQueueState extends State<MeQueue> {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text("Hủy"),
+            child: Text("Huy"),
           ),
           ElevatedButton(
             onPressed: () async {
